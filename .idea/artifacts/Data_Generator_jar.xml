@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Data Generator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Data_Generator_jar</output-path>
+    <root id="archive" name="Data Generator.jar">
+      <element id="module-output" name="Data Generator" />
+    </root>
+  </artifact>
+</component>
