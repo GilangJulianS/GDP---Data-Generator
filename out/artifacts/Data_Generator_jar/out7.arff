@@ -1,0 +1,6 @@
+@relation location
+@attribute day numeric
+@attribute hour numeric
+@attribute lattitude numeric
+@attribute longitude numeric
+@data
