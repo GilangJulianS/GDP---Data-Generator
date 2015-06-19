@@ -8,7 +8,9 @@ public class HardCodedGenerator {
 
 	List<Location> rumah;
 	List<List<Location>> jalan;
+	List<Location> jalanKeTA;
 	List<Location> citicon;
+	List<Location> taman;
 	float[] times = {6.7f, 6.8f, 6.9f, 7f, 7.1f, 7.2f};
 	float[] times2 = {18.2f, 18.1f, 18f, 17.9f, 17.8f, 17.7f};
 	Random random;
@@ -17,6 +19,8 @@ public class HardCodedGenerator {
 		rumah = new ArrayList<Location>();
 		jalan = new ArrayList<List<Location>>();
 		citicon = new ArrayList<Location>();
+		jalanKeTA = new ArrayList<Location>();
+		taman = new ArrayList<>();
 		random = new Random();
 		fillData();
 	}
@@ -126,6 +130,26 @@ public class HardCodedGenerator {
 		citicon.add(new Location("-6.192597, 106.797883"));
 		citicon.add(new Location("-6.192765, 106.797918"));
 		citicon.add(new Location("-6.192657, 106.797828"));
+
+		jalanKeTA.add(new Location("-6.243306, 106.859090"));
+		jalanKeTA.add(new Location("-6.241637, 106.837450"));
+		jalanKeTA.add(new Location("-6.230062, 106.819498"));
+		jalanKeTA.add(new Location("-6.215215, 106.809499"));
+		jalanKeTA.add(new Location("-6.200395, 106.798953"));
+		jalanKeTA.add(new Location("-6.192691, 106.797402"));
+		jalanKeTA.add(new Location("-6.180749, 106.796605"));
+		jalanKeTA.add(new Location("-6.176760, 106.793655"));
+
+		taman.add(new Location("-6.177507, 106.792968"));
+		taman.add(new Location("-6.178627, 106.792689"));
+		taman.add(new Location("-6.178115, 106.791208"));
+		taman.add(new Location("-6.177987, 106.792313"));
+		taman.add(new Location("-6.176909, 106.790500"));
+		taman.add(new Location("-6.176312, 106.791981"));
+		taman.add(new Location("-6.177891, 106.789728"));
+		taman.add(new Location("-6.178040, 106.792153"));
+
+
 	}
 	
 	public void generate(double jitterLoc, int days, float interval){
@@ -136,7 +160,7 @@ public class HardCodedGenerator {
 					Location tempLoc = rumah.get(temp);
 					double lat = jitter(tempLoc.getLattitude(), jitterLoc);
 					double lon = jitter(tempLoc.getLongitude(), jitterLoc);
-					System.out.println(j/2400f + ", " + lat + ", " + lon);
+					System.out.println(i%7 + ", " + j + ", " + lat + ", " + lon);
 				}else if(j < 8f){
 					int temp = random.nextInt(10);
 					List<Location> locations = jalan.get(temp);
@@ -145,7 +169,7 @@ public class HardCodedGenerator {
 						Location tempLoc = locations.get(k);
 						double lat = jitter(tempLoc.getLattitude(), jitterLoc);
 						double lon = jitter(tempLoc.getLongitude(), jitterLoc);
-						System.out.println((times[k] + jitterTime)/2400 + ", " + lat + ", " + lon);
+						System.out.println(i%7 + ", " + (times[k] + jitterTime) + ", " + lat + ", " + lon);
 					}
 					j = 8f;
 				}else if(j < 17f){
@@ -153,7 +177,7 @@ public class HardCodedGenerator {
 					Location tempLoc = citicon.get(temp);
 					double lat = jitter(tempLoc.getLattitude(), jitterLoc);
 					double lon = jitter(tempLoc.getLongitude(), jitterLoc);
-					System.out.println(j/2400 + ", " + lat + ", " + lon);
+					System.out.println(i%7 + ", " + j + ", " + lat + ", " + lon);
 				}else if(j < 19f){
 					int temp = random.nextInt(10);
 					List<Location> locations = jalan.get(temp);
@@ -162,7 +186,7 @@ public class HardCodedGenerator {
 						Location tempLoc = locations.get(k);
 						double lat = jitter(tempLoc.getLattitude(), jitterLoc);
 						double lon = jitter(tempLoc.getLongitude(), jitterLoc);
-						System.out.println((times2[k] + jitterTime)/2400 + ", " + lat + ", " + lon);
+						System.out.println(i%7 + ", " + (times2[k] + jitterTime) + ", " + lat + ", " + lon);
 					}
 					j = 19f;
 				}else{
@@ -170,7 +194,50 @@ public class HardCodedGenerator {
 					Location tempLoc = rumah.get(temp);
 					double lat = jitter(tempLoc.getLattitude(), jitterLoc);
 					double lon = jitter(tempLoc.getLongitude(), jitterLoc);
-					System.out.println(j/2400 + ", " + lat + ", " + lon);
+					System.out.println(i%7 + ", " + j + ", " + lat + ", " + lon);
+				}
+			}
+
+
+			for(float j=0; j<24; j+=interval){
+				if(j < 6.5f){
+					int temp = random.nextInt(rumah.size());
+					Location tempLoc = rumah.get(temp);
+					double lat = jitter(tempLoc.getLattitude(), jitterLoc);
+					double lon = jitter(tempLoc.getLongitude(), jitterLoc);
+					System.out.println(i%7 + ", " + j + ", " + lat + ", " + lon);
+				}else if(j < 8f){
+					int temp = random.nextInt(10);
+					for(int k=0; k<6; k++){
+						float jitterTime = (float)random.nextInt(100)/1000;
+						Location tempLoc = jalanKeTA.get(k);
+						double lat = jitter(tempLoc.getLattitude(), jitterLoc);
+						double lon = jitter(tempLoc.getLongitude(), jitterLoc);
+						System.out.println(i%7 + ", " + (times[k] + jitterTime) + ", " + lat + ", " + lon);
+					}
+					j = 8f;
+				}else if(j < 17f){
+					int temp = random.nextInt(taman.size());
+					Location tempLoc = taman.get(temp);
+					double lat = jitter(tempLoc.getLattitude(), jitterLoc);
+					double lon = jitter(tempLoc.getLongitude(), jitterLoc);
+					System.out.println(i%7 + ", " + j + ", " + lat + ", " + lon);
+				}else if(j < 19f){
+					int temp = random.nextInt(10);
+					for(int k=5; k>=0; k--){
+						float jitterTime = (float)random.nextInt(100)/1000;
+						Location tempLoc = jalanKeTA.get(k);
+						double lat = jitter(tempLoc.getLattitude(), jitterLoc);
+						double lon = jitter(tempLoc.getLongitude(), jitterLoc);
+						System.out.println(i%7 + ", " + (times2[k] + jitterTime) + ", " + lat + ", " + lon);
+					}
+					j = 19f;
+				}else{
+					int temp = random.nextInt(rumah.size());
+					Location tempLoc = rumah.get(temp);
+					double lat = jitter(tempLoc.getLattitude(), jitterLoc);
+					double lon = jitter(tempLoc.getLongitude(), jitterLoc);
+					System.out.println(i%7 + ", " + j + ", " + lat + ", " + lon);
 				}
 			}
 		}
